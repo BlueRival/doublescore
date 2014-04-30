@@ -1,0 +1,25 @@
+{
+	"name": "doublescore",
+	"description": "Some utility functions.",
+	"author": "Anthony Hildoer <anthony@bluerival.com>",
+	"version": "0.0.2",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/bluerival/node-doublescore.git"
+	},
+	"keywords": [
+		"object",
+		"array",
+		"clone",
+		"mixin",
+		"isObject",
+		"isArray"
+	],
+	"devDependencies": {
+		"mocha": "~1"
+	},
+	"engines": {
+		"node": ">=0.10.0"
+	},
+	"license": "MIT"
+}
