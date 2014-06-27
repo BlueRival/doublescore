@@ -2,10 +2,10 @@
 	"name": "doublescore",
 	"description": "Some utility functions.",
 	"author": "Anthony Hildoer <anthony@bluerival.com>",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"repository": {
 		"type": "git",
-		"url": "git://github.com/bluerival/node-doublescore.git"
+		"url": "git://github.com/bluerival/doublescore.git"
 	},
 	"keywords": [
 		"object",
