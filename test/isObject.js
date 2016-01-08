@@ -15,13 +15,21 @@ describe( 'isObject', function() {
 
 	it( 'should return false for NULL', function() {
 		assert.equal( __.isObject( null ), false );
-
 		assert.equal( __( null ).isObject(), false );
+	} );
+
+	it( 'should return false for Infinity', function() {
+		assert.equal( __.isObject( Infinity ), false );
+		assert.equal( __( Infinity ).isObject(), false );
+	} );
+
+	it( 'should return false for NaN', function() {
+		assert.equal( __.isObject( NaN ), false );
+		assert.equal( __( NaN ).isObject(), false );
 	} );
 
 	it( 'should return false for UNDEFINED', function() {
 		assert.equal( __.isObject( undefined ), false );
-
 		assert.equal( __( undefined ).isObject(), false );
 	} );
 
@@ -67,7 +75,7 @@ describe( 'isObject', function() {
 		assert.equal( __( {} ).isObject(), true );
 	} );
 
-	describe( 'should return true for any kind of object:', function() {
+	describe( 'should return true for any other kind of object:', function() {
 
 		it( 'new Date()', function() {
 			assert.equal( __.isObject( new Date() ), true );

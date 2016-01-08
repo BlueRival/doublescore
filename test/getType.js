@@ -21,30 +21,47 @@ describe( 'getType', function() {
 	} );
 
 	it( 'should handle integers', function() {
-		assert.equal( __.getType( 1 ), 'integer' );
-		assert.equal( __.getType( -1 ), 'integer' );
-		assert.equal( __.getType( 0 ), 'integer' );
-		assert.equal( __.getType( 0.0 ), 'integer' );
-		assert.equal( __.getType( Number.MAX_VALUE ), 'integer' );
-		assert.equal( __.getType( -Number.MAX_VALUE ), 'integer' );
+		[
+			1,
+			-1,
+			0,
+			0.0,
+			-0,
+			-0.0,
+			Number.MAX_VALUE,
+			-Number.MAX_VALUE,
+			new Number( 1 ),
+			new Number( -1 ),
+			-(new Number( 1 )),
+			new Number( 0 ),
+			new Number( -0 ),
+			-(new Number( 0 )),
+			new Number( 0.0 ),
+			new Number( -0.0 ),
+			-(new Number( 0.0 ))
+		].forEach( function( val ) {
+			assert.equal( __.getType( val ), 'integer' );
+			assert.equal( __( val ).getType(), 'integer' );
+		} );
 
-		assert.equal( __( 1 ).getType(), 'integer' );
-		assert.equal( __( -1 ).getType(), 'integer' );
-		assert.equal( __( 0 ).getType(), 'integer' );
-		assert.equal( __( 0.0 ).getType(), 'integer' );
-		assert.equal( __( Number.MAX_VALUE ).getType(), 'integer' );
-		assert.equal( __( -Number.MAX_VALUE ).getType(), 'integer' );
 	} );
 
 	it( 'should handle floats', function() {
-		assert.equal( __.getType( 1.1 ), 'float' );
-		assert.equal( __.getType( -1.1 ), 'float' );
-		assert.equal( __.getType( Number.MIN_VALUE ), 'float' );
-		assert.equal( __.getType( -Number.MIN_VALUE ), 'float' );
-		assert.equal( __( 1.1 ).getType(), 'float' );
-		assert.equal( __( -1.1 ).getType(), 'float' );
-		assert.equal( __( Number.MIN_VALUE ).getType(), 'float' );
-		assert.equal( __( -Number.MIN_VALUE ).getType(), 'float' );
+		[
+			1.1,
+			-1.1,
+			0.1,
+			-0.1,
+			Number.MIN_VALUE,
+			-Number.MIN_VALUE,
+			new Number( 10.1 ),
+			new Number( -10.1 ),
+			-(new Number( 10.1 )),
+		].forEach( function( val ) {
+			assert.equal( __.getType( val ), 'float' );
+			assert.equal( __( val ).getType(), 'float' );
+		} );
+
 	} );
 
 	it( 'should handle booleans', function() {
@@ -55,8 +72,10 @@ describe( 'getType', function() {
 	} );
 
 	it( 'should handle arrays', function() {
+		assert.equal( __.getType( new Array() ), 'array' );
 		assert.equal( __.getType( [] ), 'array' );
 		assert.equal( __.getType( [ "one", "two", "three" ] ), 'array' );
+		assert.equal( __( new Array() ).getType(), 'array' );
 		assert.equal( __( [] ).getType(), 'array' );
 		assert.equal( __( [ "one", "two", "three" ] ).getType(), 'array' );
 	} );
@@ -73,25 +92,23 @@ describe( 'getType', function() {
 		assert.equal( __( {} ).getType(), 'object' );
 	} );
 
-	describe( 'should handle any other kind of object:', function() {
+	it( 'should handle Date', function() {
+		assert.equal( __.getType( new Date() ), 'date' );
+		assert.equal( __( new Date() ).getType(), 'date' );
+	} );
 
-		it( 'new Date()', function() {
-			assert.equal( __.getType( new Date() ), 'object' );
-		} );
+	it( 'should handle RegExp', function() {
+		assert.equal( __.getType( new RegExp() ), 'regex' );
+		assert.equal( __( new RegExp() ).getType(), 'regex' );
+		assert.equal( __.getType( /regex/ ), 'regex' );
+		assert.equal( __( /regex/ ).getType(), 'regex' );
+	} );
 
-		it( 'new RegExp()', function() {
-			assert.equal( __.getType( new RegExp() ), 'object' );
-		} );
-
-
-		it( 'new Date()', function() {
-			assert.equal( __( new Date() ).getType(), 'object' );
-		} );
-
-		it( 'new RegExp()', function() {
-			assert.equal( __( new RegExp() ).getType(), 'object' );
-		} );
-
+	it( 'should handle objects from custom class new function()', function() {
+		var c = function() {
+		};
+		assert.equal( __.getType( new c() ), 'object' );
+		assert.equal( __( new c() ).getType(), 'object' );
 	} );
 
 } );

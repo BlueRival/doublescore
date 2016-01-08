@@ -2,10 +2,13 @@
 	"name": "doublescore",
 	"description": "Some utility functions.",
 	"author": "Anthony Hildoer <anthony@bluerival.com>",
-	"version": "0.0.3",
+	"version": "0.1.0",
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/bluerival/doublescore.git"
+	},
+	"scripts": {
+		"test": "node_modules/mocha/bin/mocha -b -u bdd test/default"
 	},
 	"keywords": [
 		"object",
@@ -16,7 +19,7 @@
 		"isArray"
 	],
 	"devDependencies": {
-		"mocha": "~1"
+		"mocha": "2.3.4"
 	},
 	"engines": {
 		"node": ">=0.10.0"

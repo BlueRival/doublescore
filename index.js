@@ -10,32 +10,47 @@ if ( !myArray.isArray ) {
 	};
 }
 
+function isNumber( arg ) {
+	return typeof arg === 'number' && !isNaN( arg );
+}
+
 function isArray( arg ) {
 	return myArray.isArray( arg );
 }
 
 function isObject( arg ) {
-	return typeof arg === 'object' && !Array.isArray( arg ) && arg !== null;
+	return typeof arg === 'object' && !Array.isArray( arg ) && !(arg instanceof Number) && arg !== null;
 }
 
 function getType( arg ) {
 
+	if ( arg instanceof Number ) {
+		arg = arg * 1;
+	}
+
 	// handle exceptions that typeof doesn't handle
 	if ( arg === null ) {
 		return 'null';
-	}
-	else if ( Array.isArray( arg ) ) {
+	} else if ( isArray( arg ) ) {
 		return 'array';
+	} else if ( arg instanceof Date ) {
+		return 'date';
+	} else if ( arg instanceof RegExp ) {
+		return 'regex';
 	}
 
 	var type = typeof arg;
 
 	// more resolution on numbers
 	if ( type === 'number' ) {
-		if ( Math.ceil( arg ) > Math.floor( arg ) ) {
+
+		if ( isNaN( arg ) ) {
+			type = 'not-a-number';
+		} else if ( Infinity === arg ) {
+			type = 'infinity';
+		} else if ( Math.ceil( arg ) > Math.floor( arg ) ) {
 			type = 'float';
-		}
-		else {
+		} else {
 			type = 'integer';
 		}
 	}
@@ -58,22 +73,19 @@ function clone( arg ) {
 
 	if ( arg instanceof Date ) {
 		target = new Date( arg.toISOString() );
-	}
-	else if ( isArray( arg ) ) {
+	} else if ( isArray( arg ) ) {
 		target = [];
 		for ( var i = 0; i < arg.length; i++ ) {
-			target[i] = clone( arg[i] );
+			target[ i ] = clone( arg[ i ] );
 		}
-	}
-	else if ( isObject( arg ) ) {
+	} else if ( isObject( arg ) ) {
 		target = {};
 		for ( var field in arg ) {
 			if ( arg.hasOwnProperty( field ) ) {
-				target[field] = clone( arg[field] );
+				target[ field ] = clone( arg[ field ] );
 			}
 		}
-	}
-	else { // functions, etc. not clonable, and will pass through, though for primitives like strings and numbers, arg is cloning
+	} else { // functions, etc. not clonable, and will pass through, though for primitives like strings and numbers, arg is cloning
 		target = arg;
 	}
 
@@ -97,7 +109,7 @@ function mixin( arg ) {
 	// handle arbitrary number of mixins. precedence is from last to first item passed in.
 	for ( var i = 1; i < arguments.length; i++ ) {
 
-		var source = arguments[i];
+		var source = arguments[ i ];
 
 		// mixin the source differently depending on what is in the destination
 		switch ( getType( target ) ) {
@@ -132,21 +144,21 @@ function mixin( arg ) {
 								}
 
 								// recurse mixin differently depending on what the target value is
-								switch ( getType( target[field] ) ) {
+								switch ( getType( target[ field ] ) ) {
 
 									// for any non-objects, do this
 									case 'undefined':
 									case 'null':
 
-										switch ( getType( source[field] ) ) {
+										switch ( getType( source[ field ] ) ) {
 											case 'undefined':
 												// NO-OP undefined doesn't override anything
 												break;
 											case 'null':
-												target[field] = null;
+												target[ field ] = null;
 												break;
 											default:
-												target[field] = clone( source[field] );
+												target[ field ] = clone( source[ field ] );
 												break;
 										}
 
@@ -155,7 +167,7 @@ function mixin( arg ) {
 									// if the target is already an object, we can mixin on it
 									default:
 
-										target[field] = mixin( target[field], source[field] );
+										target[ field ] = mixin( target[ field ], source[ field ] );
 
 										break;
 								}
@@ -209,32 +221,36 @@ function mixin( arg ) {
 
 module.exports = function( obj ) {
 	return {
+		clone:    function() {
+			return clone( obj );
+		},
+		getType:  function() {
+			return getType( obj );
+		},
+		isArray:  function() {
+			return isArray( obj );
+		},
+		isNumber: function() {
+			return isNumber( obj );
+		},
 		isObject: function() {
 			return isObject( obj );
 		},
-		isArray: function() {
-			return isArray( obj );
-		},
-		getType: function() {
-			return getType( obj );
-		},
-		mixin: function() {
-			var args = [obj];
+		mixin:    function() {
+			var args = [ obj ];
 			for ( var i in  arguments ) {
 				if ( arguments.hasOwnProperty( i ) ) {
-					args.push( arguments[i] );
+					args.push( arguments[ i ] );
 				}
 			}
 			return mixin.apply( module.exports, args );
-		},
-		clone: function() {
-			return clone( obj );
 		}
 	};
 };
 
-module.exports.mixin = mixin;
 module.exports.clone = clone;
-module.exports.isObject = isObject;
-module.exports.isArray = isArray;
 module.exports.getType = getType;
+module.exports.isArray = isArray;
+module.exports.isNumber = isNumber;
+module.exports.isObject = isObject;
+module.exports.mixin = mixin;

@@ -25,6 +25,16 @@ describe( 'isArray', function() {
 		assert.equal( __( undefined ).isArray(), false );
 	} );
 
+	it( 'should return false for Infinity', function() {
+		assert.equal( __.isArray( Infinity ), false );
+		assert.equal( __( Infinity ).isArray(), false );
+	} );
+
+	it( 'should return false for NaN', function() {
+		assert.equal( __.isArray( NaN ), false );
+		assert.equal( __( NaN ).isArray(), false );
+	} );
+
 	it( 'should return false for a string', function() {
 		assert.equal( __.isArray( "string" ), false );
 		assert.equal( __.isArray( "" ), false );
