@@ -1,25 +1,40 @@
 doublescore
 ====================
 
-Some utility functions, such as an Object.isObject() method to parallel Array.isArray(), a clone() method on all objects and a mixin() method on all objects, and a getType() method.
+Some utility functions for managing common tasks related to managing data structures and measurement.
 
-isObject() will return TRUE for anything that is typeof object, is not an Array, and is not NULL.
-getType() will return 'null' for NULL, 'array' for an Array, 'float' for a non-integer number, 'integer' for an integer number, and typeof result for all else.
-clone() will return a distinct copy of the object it was called from. Date objects are cloned, arrays and objects are recursively cloned down 100 levels max and all else is just passed through.
-mixin() will return a clone of the original object, with any passed in objects merged in recursively up to 100 levels max. mixin() accepts an arbitrary number of arguments, they will be mixed in from left to right.
+
+isObject() 
+
+Will return TRUE for anything that is typeof object, is not an Array, and is not NULL.
+
+
+getType() 
+
+Will return 'null' for NULL, 'array' for an Array, 'float' for a non-integer number, 'integer' for an integer number, and typeof result for all else.
+
+
+clone() 
+
+Will return a distinct copy of the object it was called from. Date objects are cloned, arrays and objects are recursively cloned down 100 levels max and all else is just passed through.
+
+
+mixin() 
+
+Will return a clone of the original object, with any passed in objects merged in recursively up to 100 levels max. mixin() accepts an arbitrary number of arguments, they will be mixed in from left to right.
+
+
+timer() 
+
+Will return a function that will track time deltas with 1ms resolution and < 0.1% error on average. The returned function accepts a single parameter: reset, which if true will reset the timer, returning the last interval
+
+NOTE: timer() is experimental. 0.5% margin of error for both precision and accuracy at best, probably closer to 1% for most intervals of time. However, deviance is constant regardless of actual time interval measured. Thus, error rates for higher intervals (> 100ms) will be considerably lower than those for short intervals (< 50ms).
+ 
 
 Documentation
 ====================
 
-For the time being, please see the test cases in test/default.js to understand
-exactly how getType(), isObject(), clone() and mixin() behave.
-
-
-TO DO
-====================
-
-- write examples in this doc
-- add support of custom clone functions based on object type
+Please see the test cases in test/default.js
 
 
 License
@@ -27,7 +42,7 @@ License
 
 (The MIT License)
 
-Copyright (c) 2012 BlueRival Software <anthony@bluerival.com>
+Copyright (c) 2016 BlueRival Software <anthony@bluerival.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
 files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy,

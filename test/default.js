@@ -5,3 +5,4 @@ require( './getType' );
 require( './isArray' );
 require( './isObject' );
 require( './mixin' );
+require( './timer' );

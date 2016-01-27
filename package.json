@@ -2,7 +2,7 @@
 	"name": "doublescore",
 	"description": "Some utility functions.",
 	"author": "Anthony Hildoer <anthony@bluerival.com>",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/bluerival/doublescore.git"
@@ -19,6 +19,7 @@
 		"isArray"
 	],
 	"devDependencies": {
+		"async": "1.5.2",
 		"mocha": "2.3.4"
 	},
 	"engines": {

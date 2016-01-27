@@ -219,6 +219,31 @@ function mixin( arg ) {
 
 }
 
+function timer() {
+
+	// account for overhead within this function, this may not be a good idea
+	var offset = 1;
+
+	var start = new Date().getTime() + offset;
+
+	return function( reset ) {
+
+		var diff = new Date().getTime() - start;
+
+		if ( diff < 0 ) {
+			diff = 0;
+		}
+
+		if ( reset ) {
+			start = new Date().getTime() + offset;
+		}
+
+		return diff;
+
+	};
+
+}
+
 module.exports = function( obj ) {
 	return {
 		clone:    function() {
@@ -250,6 +275,7 @@ module.exports = function( obj ) {
 
 module.exports.clone = clone;
 module.exports.getType = getType;
+module.exports.timer = timer;
 module.exports.isArray = isArray;
 module.exports.isNumber = isNumber;
 module.exports.isObject = isObject;
