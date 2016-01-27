@@ -1,8 +1,7 @@
 doublescore
 ====================
 
-Some utility functions for managing common tasks related to managing data structures and measurement.
-
+These are the available utility functions.
 
 isObject() 
 
@@ -31,10 +30,50 @@ Will return a function that will track time deltas with 1ms resolution and < 0.1
 NOTE: timer() is experimental. 0.5% margin of error for both precision and accuracy at best, probably closer to 1% for most intervals of time. However, deviance is constant regardless of actual time interval measured. Thus, error rates for higher intervals (> 100ms) will be considerably lower than those for short intervals (< 50ms).
  
 
+Usage
+====================
+
+The usage for doublescore is patterned after other utility libraries like underscore.
+
+
+
+```javascript
+
+var __ = require( 'doublescore' );
+
+
+function do( params, done ) {
+
+	params = __( {
+		deep: [
+			{
+				merge: 'on this default object of'
+			}
+		],
+		strings: {
+			objects: 'and',
+			numbers: 1.5
+		},
+		and: null,
+		boolean: true,
+		etc: [ false, false ],
+		from: 'params'
+	} ).mixin( params );
+	
+	//... 
+	
+	done();
+
+}
+
+
+```
+
+
 Documentation
 ====================
 
-Please see the test cases in test/default.js
+Please see the test cases in test/default.js for extensive examples of all supported use cases.
 
 
 License
