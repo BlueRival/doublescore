@@ -1,9 +1,9 @@
 'use strict';
 
 require( './close' );
-//require( './clone' );
-//require( './getType' );
-//require( './isArray' );
-//require( './isObject' );
-//require( './mixin' );
-//require( './timer' );
+require( './clone' );
+require( './getType' );
+require( './isArray' );
+require( './isObject' );
+require( './mixin' );
+require( './timer' );
