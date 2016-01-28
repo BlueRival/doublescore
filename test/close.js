@@ -17,6 +17,9 @@ describe( 'close', function() {
 		cb( null, 200 );
 		assert.strictEqual( args, 2 );
 
+		cb( null, 200, 300, 400 );
+		assert.strictEqual( args, 4 );
+
 		cb( false, 200 );
 		assert.strictEqual( args, 2 );
 
@@ -27,6 +30,9 @@ describe( 'close', function() {
 		assert.strictEqual( args, 2 );
 
 		cb( new Error( 'hi' ), 200 );
+		assert.strictEqual( args, 1 );
+
+		cb( new Error( 'hi' ), 200, 300, 400 );
 		assert.strictEqual( args, 1 );
 
 		cb( new Error( 'hi' ) );

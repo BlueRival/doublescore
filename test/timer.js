@@ -5,7 +5,7 @@ var assert = require( 'assert' );
 var __ = require( '../' );
 
 describe( 'timer', function() {
-	it( 'should measure time delta with <= 0.1% error', function( done ) {
+	it( 'should measure time delta with <= 0.5% error', function( done ) {
 
 		var timer = __.timer();
 
@@ -19,7 +19,7 @@ describe( 'timer', function() {
 				var errorRate = error / timeout;
 
 				try {
-					assert( errorRate <= 0.1 );
+					assert( errorRate <= 0.5 );
 					done();
 				} catch ( e ) {
 					done( e );
@@ -31,7 +31,7 @@ describe( 'timer', function() {
 
 	} );
 
-	it( 'should take intervals with <= 0.1% error per interval', function( done ) {
+	it( 'should take intervals with <= 0.5% error per interval', function( done ) {
 
 		var timer = __.timer();
 		var total = 0;
@@ -52,7 +52,7 @@ describe( 'timer', function() {
 				var errorRate = error / timeout;
 
 				try {
-					assert( errorRate <= (i * 0.1) );
+					assert( errorRate <= (i * 0.5) );
 					done();
 				} catch ( e ) {
 					done( e );
@@ -64,7 +64,7 @@ describe( 'timer', function() {
 
 	} );
 
-	it( 'should reset intervals with <= 0.1% error per interval', function( done ) {
+	it( 'should reset intervals with <= 0.5% error per interval', function( done ) {
 
 		var timer = __.timer();
 		async.timesSeries( 10, function( i, done ) {
@@ -80,7 +80,7 @@ describe( 'timer', function() {
 				var errorRate = error / timeout;
 
 				try {
-					assert( errorRate <= 0.1 );
+					assert( errorRate <= 0.5 );
 
 					done();
 				} catch ( e ) {
