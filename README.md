@@ -3,6 +3,11 @@ doublescore
 
 These are the available utility functions.
 
+close() 
+
+Returns a function used to generate callbacks with a service level of max calls and minimum TTL until callback errors
+
+
 isObject() 
 
 Will return TRUE for anything that is typeof object, is not an Array, and is not NULL.
