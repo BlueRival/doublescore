@@ -59,21 +59,6 @@ mixin()
 
 Applies clone() to params and then recursively mixes all values into default. If types do not match, params type is taken. mixin() accepts an arbitrary number of arguments, they will be mixed in from left to right.
 
-
-timer() 
-
-Will return a function that will track time deltas with 1ms resolution and < 0.1% error on average. The returned function accepts a single parameter: reset, which if true will reset the timer, returning the last interval
-
-NOTE: timer() is experimental. 0.5% margin of error for both precision and accuracy at best, probably closer to 1% for most intervals of time. However, deviance is constant regardless of actual time interval measured. Thus, error rates for higher intervals (> 100ms) will be considerably lower than those for short intervals (< 50ms).
- 
-
-Usage
-====================
-
-The usage for doublescore is patterned after other utility libraries like underscore.
-
-
-
 ```javascript
 
 var __ = require( 'doublescore' );
