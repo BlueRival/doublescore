@@ -1,7 +1,30 @@
 doublescore
 ====================
 
+A natively written, no external dependency utility library.
+
+
 These are the available utility functions.
+
+
+iterate()
+
+```javascript
+
+var __ = require( 'doublescore' );
+
+__([0, { one: 1}, [2, 3] ]).iterate(function( value, index) {
+	/** is called 4 times with the params value/index:
+	 * 0/[0]
+	 * 1/[1,'one']
+	 * 2/[2, 0]
+	 * 3/[2, 1]
+	 */
+
+});
+
+```
+
 
 close() 
 
@@ -13,7 +36,7 @@ close = __( {
 	timeout: 30000
 } ).close()
 
-function do( params, done ) {
+function doSomething( params, done ) {
 
 	// ensure done is called within 30 seconds, multiple calls ignored
 	done = close( done );
@@ -63,8 +86,7 @@ Applies clone() to params and then recursively mixes all values into default. If
 
 var __ = require( 'doublescore' );
 
-
-function do( params, done ) {
+function doSomething  ( params, done ) {
 
     // sets defaults recursively
 	params = __( {
@@ -100,7 +122,7 @@ NOTE: timer() is experimental. 0.5% margin of error for both precision and accur
 Usage
 ====================
 
-The usage for doublescore is patterned after other utility libraries like underscore.
+The usage for doublescore is patterned after other utility libraries like underscore. BUT, it is not interchangeable.
 
 
 More examples

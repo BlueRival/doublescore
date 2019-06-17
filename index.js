@@ -1,43 +1,68 @@
 'use strict';
 
+var iterate = require( './lib/iterate' );
 var Clone = require( './lib/clone' );
 var Close = require( './lib/close' );
 var Mixin = require( './lib/mixin' );
 var Timer = require( './lib/timer' );
 var Types = require( './lib/types' );
 
-module.exports = function( obj ) {
+var argsToArr = function ( args ) {
+	return Array.prototype.slice.call( args );
+};
+
+module.exports = function () {
+
+	var args = arguments;
+
+	var iterateWrapper = function ( iterator ) {
+
+		var myArgs = argsToArr( args );
+		console.error( 'args', args );
+		console.error( 'myArgs', myArgs );
+		myArgs.push( iterator );
+
+		return iterate.apply( iterate, myArgs );
+
+	};
+	iterateWrapper.total = function () {
+		return iterate.total.apply( iterate, args );
+	};
+	iterateWrapper.flatten = function () {
+		return iterate.flatten.apply( iterate, args );
+	};
+
 	return {
-		clone:    function() {
-			return Clone.clone( obj );
+		iterate: iterateWrapper,
+		clone: function () {
+			return Clone.clone.apply( module.exports, args );
 		},
-		close:    function() {
-			return Close.close( obj );
+		close: function () {
+			return Close.close.apply( module.exports, args );
 		},
-		getType:  function() {
-			return Types.getType( obj );
+		getType: function () {
+			return Types.getType.apply( module.exports, args );
 		},
-		isArray:  function() {
-			return Types.isArray( obj );
+		isArray: function () {
+			return Types.isArray.apply( module.exports, args );
 		},
-		isNumber: function() {
-			return Types.isNumber( obj );
+		isNumber: function () {
+			return Types.isNumber.apply( module.exports, args );
 		},
-		isObject: function() {
-			return Types.isObject( obj );
+		isObject: function () {
+			return Types.isObject.apply( module.exports, args );
 		},
-		mixin:    function() {
-			var args = [ obj ];
-			for ( var i in  arguments ) {
-				if ( arguments.hasOwnProperty( i ) ) {
-					args.push( arguments[ i ] );
-				}
+		mixin: function () {
+			var myArgs = argsToArr( args );
+			for ( var i = 0; i < arguments.length; i++ ) {
+				myArgs.push( arguments[ i ] );
 			}
-			return Mixin.mixin.apply( module.exports, args );
+			return Mixin.mixin.apply( module.exports, myArgs );
 		}
 	};
 };
 
+module.exports.iterate = iterate;
 module.exports.clone = Clone.clone;
 module.exports.close = Close.close;
 module.exports.getType = Types.getType;
