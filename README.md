@@ -5,12 +5,44 @@ These are the available utility functions.
 
 close() 
 
+```javascript
+
+var __ = require( 'doublescore' );
+
+close = __( {
+	timeout: 30000
+} ).close()
+
+function do( params, done ) {
+
+	// ensure done is called within 30 seconds, multiple calls ignored
+	done = close( done );
+	
+	someIoCall( params, done );
+
+}
+```
+
 Returns a function used to generate callbacks with a service level of max calls and minimum TTL until callback errors
 
 
 isObject() 
 
 Will return TRUE for anything that is typeof object, is not an Array, and is not NULL.
+
+```javascript
+
+var __ = require( 'doublescore' );
+
+__.isObject( new Date() ); // true
+__.isObject( {} ); // true
+__.isObject( null ); // false
+__.isObject( "hello" ); // false
+__.isObject( Infinity ); // false
+__.isObject( 5 ); // false
+__.isObject( true ); // false
+
+```
 
 
 getType() 
@@ -25,7 +57,7 @@ Will return a distinct copy of the object it was called from. Date objects are c
 
 mixin() 
 
-Will return a clone of the original object, with any passed in objects merged in recursively up to 100 levels max. mixin() accepts an arbitrary number of arguments, they will be mixed in from left to right.
+Applies clone() to params and then recursively mixes all values into default. If types do not match, params type is taken. mixin() accepts an arbitrary number of arguments, they will be mixed in from left to right.
 
 
 timer() 
@@ -49,6 +81,7 @@ var __ = require( 'doublescore' );
 
 function do( params, done ) {
 
+    // sets defaults recursively
 	params = __( {
 		deep: [
 			{
@@ -70,13 +103,23 @@ function do( params, done ) {
 	done();
 
 }
-
-
 ```
 
+timer() 
 
-Documentation
+Will return a function that will track time deltas with 1ms resolution and < 0.1% error on average. The returned function accepts a single parameter: reset, which if true will reset the timer, returning the last interval
+
+NOTE: timer() is experimental. 0.5% margin of error for both precision and accuracy at best, probably closer to 1% for most intervals of time. However, deviance is constant regardless of actual time interval measured. Thus, error rates for higher intervals (> 100ms) will be considerably lower than those for short intervals (< 50ms).
+ 
+
+Usage
 ====================
+
+The usage for doublescore is patterned after other utility libraries like underscore.
+
+
+More examples
+=============
 
 Please see the test cases in test/default.js for extensive examples of all supported use cases.
 
@@ -86,7 +129,7 @@ License
 
 (The MIT License)
 
-Copyright (c) 2016 BlueRival Software <anthony@bluerival.com>
+Copyright (c) 2016 BlueRival Software <support@bluerival.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
 files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy,

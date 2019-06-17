@@ -11,6 +11,9 @@ module.exports = function( obj ) {
 		clone:    function() {
 			return Clone.clone( obj );
 		},
+		close:    function() {
+			return Close.close( obj );
+		},
 		getType:  function() {
 			return Types.getType( obj );
 		},
