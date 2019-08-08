@@ -2,7 +2,7 @@
   "name": "doublescore",
   "description": "Utility functions for managing data structures and measurement.",
   "author": "Anthony Hildoer <anthony@bluerival.com>",
-  "version": "0.3.7",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/bluerival/doublescore.git"
@@ -26,19 +26,18 @@
     "typeof"
   ],
   "devDependencies": {
-    "@types/async": "3.0.0",
+    "@types/async": "3.0.1",
     "@types/glob": "7.1.1",
     "@types/mocha": "5.2.7",
-    "@types/node": "12.6.2",
+    "@types/node": "12.7.1",
     "@types/rimraf": "2.0.2",
     "async": "3.1.0",
     "glob": "7.1.4",
-    "mocha": "6.1.4",
+    "mocha": "6.2.0",
     "rimraf": "2.6.3",
     "ts-node": "8.3.0",
     "tslint": "5.18.0",
-    "typescript": "3.5.3",
-    "watch": "1.0.2"
+    "typescript": "3.5.3"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
