@@ -44,3 +44,15 @@ oauth.config
 *.iml
 .vscode/settings.json
 etc
+
+# TypeScript Source #
+#############
+/lib
+/index.ts
+/test
+
+# Other dev files
+.gitignore
+.npmignore
+tsconfig.json
+tslint.json
