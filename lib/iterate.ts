@@ -58,6 +58,7 @@ namespace iterate {
 
     const output: any[] = [];
 
+    // add a callback to the args of inputs to handle all the iterations
     args.push( ( value: any ) => {
       output.push( value );
     } );
