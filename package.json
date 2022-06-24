@@ -2,7 +2,7 @@
   "name": "doublescore",
   "description": "Utility functions for managing data structures and measurement.",
   "author": "Anthony Hildoer <anthony@bluerival.com>",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": {
     "type": "git",
     "url": "git://github.com/bluerival/doublescore.git"
